@@ -1,16 +1,40 @@
+def espace():
+    """Permet de simplement créer un espace"""
+    return print()
+
+def bienvenue():
+    """Création d'un message d'accueil"""
+    welcome: str = """ + TP - D33 (PGR) - MINI CASINO"""
+    return print(welcome)
+
+def séparateur(symbole: str = "-", nombre: int = 100):
+    """fonction permettant de générer des symboles (tirets) pour séparer du contenu
+
+    Args:
+        symbole (str, optional): Le symbole utilisé. Par défaut "-".
+        nombre (int, optional): La quantité de symbole répété. Par défaut 100.
+
+    Returns:
+        _type_: Retourne une chaîne de caractères.
+    """
+    symbole: str = symbole.strip()
+    nombre: int = int(nombre)
+    return print(f" + {symbole * nombre}")
+
+
 # Gestion des scores (score.txt) - partie 1/2
-def initialisation_scores(file_name: str = "score.txt") -> object:
+def initialisation_scores(file_name="score.txt"):
     """Création d'une première méthode pour initialiser le fichier score.txt
 
     Args:
         file_name (str, optional): Nom du fichier par défaut score.txt
 
     Returns:
-        object: {username;score}
+        dict: {username: score}
     """
     scores = {}
     try:
-        with open(file_name, "r", encoding="utf-8") as file:
+        with open(file_name, "r") as file:
             for line in file.readlines():
                 username, score = line.strip().split(";")
                 scores[username] = int(score)
@@ -19,19 +43,17 @@ def initialisation_scores(file_name: str = "score.txt") -> object:
         # Création de celui-ci avec des valeurs par défaut:
         #   GRESSIER;999
         #   GUILLON;777
-        default_content_file: str = "GRESSIER;999\nGUILLON;777\n"
-        with open(file_name, "w", encoding="utf-8") as file:
+        default_content_file = "GRESSIER;999\nGUILLON;777\n"
+        with open(file_name, "w") as file:
             file.write(default_content_file)
             scores = {
                 "GRESSIER": 999,
                 "GUILLON": 777
             }
-    # test affichage réussi [X]
-    # print(scores)
     return scores
 
 # Gestion des scores (score.txt) - partie 2/2
-def nouveau_scores(username: str, score: int, file_name: str = "score.txt") -> None:
+def nouveau_scores(username: str, score: int, file_name="score.txt"):
     """Création d'une seconde méthode pour ajouter à la suite un nouveau score.
 
     Args:
@@ -39,11 +61,10 @@ def nouveau_scores(username: str, score: int, file_name: str = "score.txt") -> N
         score (int): Le score de l'utilisateur
         file_name (str, optional): Nom du fichier par défaut score.txt
     """
-    
-    # chargement des scores existants
+    # Chargement des scores existants
     scores = initialisation_scores(file_name)
     scores[username] = score
-    
+
     with open(file_name, "w") as file:
         for username, score in scores.items():
-            file.write(f"{username};{score}\n")
+            file.write(f"{username.upper()};{score}\n")
