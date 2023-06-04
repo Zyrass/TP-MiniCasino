@@ -1,4 +1,5 @@
 from random import randint
+from jeux.roulette import Roulette
 from user import User
 from jeux.machine_a_sous import MachineASous
 from .common import espace, séparateur
@@ -71,7 +72,8 @@ def afficher_menu(player: User):
             machine = MachineASous()
             machine.run(player)
         elif choix_utilisateur == "2":
-            pass
+            roulette = Roulette()
+            roulette.run(player)
         elif choix_utilisateur.lower() == "q":
             break
         else:
@@ -88,4 +90,3 @@ def check_machine_a_sous(player: User):
         player.increment_solde(500)
     else:
         print(" Désolé, vous avez perdu. Essayez encore !")
-        
