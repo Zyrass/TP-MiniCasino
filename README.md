@@ -34,16 +34,16 @@ Guillon;777
 
 ### Étape 3 - (3pts)
 
--   [ ] -   Ensuite, l'utilisateur doit pouvoir entrer son nom.
--   [ ] -   Si son nom n'est pas dans le fichier score.txt, 100€ lui son donné.
+-   [X] -   Ensuite, l'utilisateur doit pouvoir entrer son nom.
+-   [X] -   Si son nom n'est pas dans le fichier score.txt, 100€ lui son donné.
 
 ### Étape 4 - (3pts)
 
--   [ ] -   Un menu lui est demandé s'il veut utiliser:
-    -   [ ] -   la machine a sous. (choix 1)
-    -   [ ] -   la roulette (choix 2)
-    -   [ ] -   quitter (choix q).
-    -   [ ] -   S'il entre une autre valeur, redemander.
+-   [X] -   Un menu lui est demandé s'il veut utiliser:
+    -   [X] -   la machine a sous. (choix 1)
+    -   [X] -   la roulette (choix 2)
+    -   [X] -   quitter (choix q).
+    -   [X] -   S'il entre une autre valeur, redemander.
 
 ### Étape 5 - (3pts)
 
