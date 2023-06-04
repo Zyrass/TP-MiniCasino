@@ -28,14 +28,14 @@ Guillon;777
 
 ### Étape 2 - (3pts)
 
--   [ ] -   Un utilisateur est défini par son nom et son argent.
--   [ ] -   Il ne peut pas avoir moins de 0€.
--   [ ] -   Il doit être représenté par une classe dans un fichier a part.
+-   [X] -   Un utilisateur est défini par son nom et son argent.
+-   [X] -   Il ne peut pas avoir moins de 0€.
+-   [X] -   Il doit être représenté par une classe dans un fichier a part.
 
 ### Étape 3 - (3pts)
 
 -   [ ] -   Ensuite, l'utilisateur doit pouvoir entrer son nom.
--   [ ] -   Si son nom n'est pas dans le fichier score.txt 100€ lui son donné.
+-   [ ] -   Si son nom n'est pas dans le fichier score.txt, 100€ lui son donné.
 
 ### Étape 4 - (3pts)
 
