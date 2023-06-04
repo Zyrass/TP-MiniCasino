@@ -9,7 +9,7 @@ Il s'agit d'un TP qui me permettra de valider le module **D33 - PGR - Initiation
 
 ## Structure attendu
 
-![structure](Exemple_structure_projet.png)
+![structure](./assets/images/Exemple_structure_projet.png)
 
 ### Étape 1 - (3pts)
 
