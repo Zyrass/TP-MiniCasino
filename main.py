@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from utilisateurs import Utilisateur
-from utilitaires import espace, separateur, bienvenue, initialisation_scores, nouveau_scores, afficher_menu
+from common.utilitaires import espace, separateur, bienvenue, initialisation_scores, nouveau_scores, afficher_menu
 
 # PROGRAMME PRINCIPAL
 def main():
