@@ -69,12 +69,12 @@ flechette = Jeu("Flechette")
 
 ### Étape 7 - (3pts)
 
--   [ ] -   Créer une classe **MachineASous**
--   [ ] -   Elle hérite de **Jeu**.
--   [ ] -   **MachineASous** définie automatiquement le nom du jeu a "**Machine à sous**".
--   [ ] -   Si l'utilisateur a **choisi 1** au menu défini au point 4, le message de bienvenu est affiché (_via la méthode hérité de jeu_).
--   [ ] -   Le jeu est lancé via la méthode **run** (**machine_a_sous.run(user)**).
--   [ ] -   l'utilisateur peut choisir de jouer 1€ (**via la touche 1**) ou quitter (**via la touche q**).
+-   [X] -   Créer une classe **MachineASous**
+-   [X] -   Elle hérite de **Jeu**.
+-   [X] -   **MachineASous** définie automatiquement le nom du jeu a "**Machine à sous**".
+-   [X] -   Si l'utilisateur a **choisi 1** au menu défini au point 4, le message de bienvenu est affiché (_via la méthode hérité de jeu_).
+-   [x] -   Le jeu est lancé via la méthode **run** (**machine_a_sous.run(user)**).
+-   [x] -   l'utilisateur peut choisir de jouer 1€ (**via la touche 1**) ou quitter (**via la touche q**).
 -   [ ] -   En cas de mauvaise entrée, on redemande la saisie.
 -   [ ] -   S'il quitte, l'utilisateur revient au menu défini au point 4.
 
