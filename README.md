@@ -18,7 +18,7 @@ Il s'agit d'un TP qui me permettra de valider le module **D33 - PGR - Initiation
 -   [ ] -   La première ligne enregistre l'utilisateur qui a le plus d'argent.
 -   [ ] -   La dernière celui qui en as le moins.
     -   (_Le cas d'égalité ne sera pas traité et laissé sur un ordre arbitraire_).
--   [ ] -   Une ligne est constituée du nom et de son argent, séparé par un ';'.
+-   [X] -   Une ligne est constituée du nom et de son argent, séparé par un ';'.
 
 ```sh
 # Exemple de retour attendu
