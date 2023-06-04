@@ -1,22 +1,39 @@
 from random import randint
-from jeux.roulette import Roulette
-from user import User
-from jeux.machine_a_sous import MachineASous
-from .common import espace, séparateur
+from ..jeux.machine_a_sous import MachineASous
+from ..jeux.roulette import Roulette
+from ..utilisateurs import User
 
-def bienvenue():
-    """Création d'un message d'accueil"""
-    welcome: str = """ + TP - D33 (PGR) - MINI CASINO"""
-    return print(welcome)
+def espace():
+    """Permet simplement de créer un espace."""
+    return print()
 
-def initialisation_scores(file_name="score.txt"):
-    """Création d'une première méthode pour initialiser le fichier score.txt
+def separateur(symbole: str = "-", nombre: int = 100):
+    """Fonction permettant de générer des symboles (tirets) pour séparer du contenu.
 
     Args:
-        file_name (str, optional): Nom du fichier par défaut score.txt
+        symbole (str, optional): Le symbole utilisé. Par défaut "-".
+        nombre (int, optional): La quantité de symboles répétés. Par défaut 100.
 
     Returns:
-        dict: {username: score}
+        str: Retourne une chaîne de caractères.
+    """
+    symbole = symbole.strip()
+    nombre = int(nombre)
+    return print(f" + {symbole * nombre}")
+
+def bienvenue():
+    """Crée un message d'accueil."""
+    welcome = """ + TP - D33 (PGR) - MINI CASINO"""
+    print(welcome)
+
+def initialisation_scores(file_name="score.txt"):
+    """Initialise le fichier score.txt.
+
+    Args:
+        file_name (str, optional): Nom du fichier, par défaut score.txt.
+
+    Returns:
+        dict: Dictionnaire des scores {username: score}.
     """
     scores = {}
     try:
@@ -39,12 +56,12 @@ def initialisation_scores(file_name="score.txt"):
     return scores
 
 def nouveau_scores(username: str, score: int, file_name="score.txt"):
-    """Création d'une seconde méthode pour ajouter à la suite un nouveau score.
+    """Ajoute un nouveau score à la suite.
 
     Args:
-        username (str): Le nom de l'utilisateur
-        score (int): Le score de l'utilisateur
-        file_name (str, optional): Nom du fichier par défaut score.txt
+        username (str): Le nom de l'utilisateur.
+        score (int): Le score de l'utilisateur.
+        file_name (str, optional): Nom du fichier, par défaut score.txt.
     """
     # Chargement des scores existants
     scores = initialisation_scores(file_name)
@@ -56,16 +73,16 @@ def nouveau_scores(username: str, score: int, file_name="score.txt"):
 
 def afficher_menu(player: User):
     while True:
-        séparateur("-", 35)
+        separateur("-", 35)
         print(" + MENU - MINI CASINO")
-        séparateur("-", 35)
+        separateur("-", 35)
         print(" + 1. Machine à sous")
         print(" + 2. Roulette")
-        séparateur("-", 35)
+        separateur("-", 35)
         print(" + Q. Quitter le mini casino")
-        séparateur("-", 35)
+        separateur("-", 35)
 
-        choix_utilisateur: str = input(f"\n{player._name.strip().capitalize()}, veuillez saisir un choix: ")
+        choix_utilisateur = input(f"\n{player._name.strip().capitalize()}, veuillez saisir un choix: ")
         espace()
 
         if choix_utilisateur == "1":
@@ -75,6 +92,9 @@ def afficher_menu(player: User):
             roulette = Roulette()
             roulette.run(player)
         elif choix_utilisateur.lower() == "q":
+            # Sauvegarde de la nouvelle valeur du solde du joueur
+            scores[player._name] = player._solde
+            nouveau_scores(player._name, player._solde)
             break
         else:
             print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")
@@ -86,7 +106,7 @@ def check_machine_a_sous(player: User):
     print(f" {player._name.capitalize()}, il te reste actuellement: {player._solde}€")
     
     if results[0] == results[1] == results[2]:
-        print(" Félicitation vous avez gagné 500€")
+        print(" Félicitations, vous avez gagné 500€")
         player.increment_solde(500)
     else:
         print(" Désolé, vous avez perdu. Essayez encore !")
