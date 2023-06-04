@@ -7,7 +7,7 @@ Il s'agit d'un TP qui me permettra de valider le module **D33 - PGR - Initiation
 > Le but de ce programme est de créer un mini casino avec 2 jeux : **une machine a sous** et **une roulette**.
 > **Un tableau des scores est tenu dans un fichier score.txt**
 
-## Structure attendu
+## Structure attendu (Exemple)
 
 ![structure](./assets/images/Exemple_structure_projet.png)
 
@@ -18,7 +18,7 @@ Il s'agit d'un TP qui me permettra de valider le module **D33 - PGR - Initiation
 -   [ ] -   La première ligne enregistre l'utilisateur qui a le plus d'argent.
 -   [ ] -   La dernière celui qui en as le moins.
     -   (_Le cas d'égalité ne sera pas traité et laissé sur un ordre arbitraire_).
--   [X] -   Une ligne est constituée du nom et de son argent, séparé par un ';'.
+-   [x] -   Une ligne est constituée du nom et de son argent, séparé par un ';'.
 
 ```sh
 # Exemple de retour attendu
@@ -28,22 +28,22 @@ Guillon;777
 
 ### Étape 2 - (3pts)
 
--   [X] -   Un utilisateur est défini par son nom et son argent.
--   [X] -   Il ne peut pas avoir moins de 0€.
--   [X] -   Il doit être représenté par une classe dans un fichier a part.
+-   [x] -   ~~Un utilisateur est défini par son nom et son argent.~~
+-   [x] -   ~~Il ne peut pas avoir moins de 0€.~~
+-   [x] -   ~~Il doit être représenté par une classe dans un fichier a part.~~
 
 ### Étape 3 - (3pts)
 
--   [X] -   Ensuite, l'utilisateur doit pouvoir entrer son nom.
--   [X] -   Si son nom n'est pas dans le fichier score.txt, 100€ lui son donné.
+-   [x] -   ~~Ensuite, l'utilisateur doit pouvoir entrer son nom.~~
+-   [x] -   ~~Si son nom n'est pas dans le fichier score.txt, 100€ lui son donné.~~
 
 ### Étape 4 - (3pts)
 
--   [X] -   Un menu lui est demandé s'il veut utiliser:
-    -   [X] -   la machine a sous. (choix 1)
-    -   [X] -   la roulette (choix 2)
-    -   [X] -   quitter (choix q).
-    -   [X] -   S'il entre une autre valeur, redemander.
+-   [x] -   ~~Un menu lui est demandé s'il veut utiliser:~~
+    -   [x] -   ~~la machine a sous. (choix 1)~~
+    -   [x] -   ~~la roulette (choix 2)~~
+    -   [x] -   ~~quitter (choix q).~~
+    -   [x] -   ~~S'il entre une autre valeur, redemander.~~
 
 ### Étape 5 - (3pts)
 
@@ -53,37 +53,37 @@ Guillon;777
 
 ### Étape 6 - (3pts)
 
--   [ ] -   Créer une classe jeu qui contient un attribut '**nom_du_jeu**'.
--   [ ] -   Cette attribué est initialisé par le constructeur.
+-   [x] -   ~~Créer une classe jeu qui contient un attribut '**nom_du_jeu**'.~~
+-   [x] -   ~~Cette attribué est initialisé par le constructeur.~~
 
 ```python
 # Exemple de retour attendu
 flechette = Jeu("Flechette")
 ```
 
--   [ ] -   Cette classe doit être dans le fichier 'jeu.py' lui même
--   [ ] -   dans le dossier 'jeux'
-    -   [ ] -   (_ainsi le chemin relatif est : **./jeux/jeu.py**_).
--   [ ] -   La classe Jeu possède une méthode "**bienvenue()**"
--   [ ] -   Elle affiche "**Bienvenu dans [_nom du jeu_]**"
+-   [x] -   ~~Cette classe doit être dans le fichier 'jeu.py' lui même~~
+-   [x] -   ~~dans le dossier 'jeux'~~
+    -   [x] -   (~~_ainsi le chemin relatif est : **./jeux/jeu.py**_~~).
+-   [x] -   ~~La classe Jeu possède une méthode "**bienvenue()**"~~
+-   [x] -   ~~Elle affiche "**Bienvenu dans [_nom du jeu_]**"~~
 
 ### Étape 7 - (3pts)
 
--   [X] -   Créer une classe **MachineASous**
--   [X] -   Elle hérite de **Jeu**.
--   [X] -   **MachineASous** définie automatiquement le nom du jeu a "**Machine à sous**".
--   [X] -   Si l'utilisateur a **choisi 1** au menu défini au point 4, le message de bienvenu est affiché (_via la méthode hérité de jeu_).
--   [x] -   Le jeu est lancé via la méthode **run** (**machine_a_sous.run(user)**).
--   [x] -   l'utilisateur peut choisir de jouer 1€ (**via la touche 1**) ou quitter (**via la touche q**).
--   [ ] -   En cas de mauvaise entrée, on redemande la saisie.
--   [ ] -   S'il quitte, l'utilisateur revient au menu défini au point 4.
+-   [x] -   ~~Créer une classe **MachineASous**
+-   [x] -   ~~Elle hérite de **Jeu**.
+-   [x] -   ~~**MachineASous** définie automatiquement le nom du jeu a "**Machine à sous**".
+-   [x] -   ~~Si l'utilisateur a **choisi 1** au menu défini au point 4, le message de bienvenu est affiché (_via la méthode hérité de jeu_).
+-   [x] -   ~~Le jeu est lancé via la méthode **run** (**machine_a_sous.run(user)**).
+-   [x] -   ~~l'utilisateur peut choisir de jouer 1€ (**via la touche 1**) ou quitter (**via la touche q**).
+-   [x] -   ~~En cas de mauvaise entrée, on redemande la saisie.
+-   [x] -   ~~S'il quitte, l'utilisateur revient au menu défini au point 4.
 
 ### Étape 8 - (3pts)
 
--   [ ] -   Si 1€ est joué, il perd 1€.
--   [ ] -   La machine a sous tire au hasard alors 3 chiffres entre 1 et 6 compris.
--   [ ] -   Si les 3 chiffres sont identiques, il gagne 500€, sinon il ne gagne rien.
--   [ ] -   De nouveau il peut choisir entre jouer 1€ ou quitter
+-   [x] -   Si 1€ est joué, il perd 1€.
+-   [x] -   La machine a sous tire au hasard alors 3 chiffres entre 1 et 6 compris.
+-   [x] -   Si les 3 chiffres sont identiques, il gagne 500€, sinon il ne gagne rien.
+-   [x] -   De nouveau il peut choisir entre jouer 1€ ou quitter
 
 ### Étape 9 - (3pts)
 
