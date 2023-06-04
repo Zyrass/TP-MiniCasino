@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 
-from user import User
-from utils.check_files import bienvenue, initialisation_scores, nouveau_scores, afficher_menu
-from utils.common import espace, séparateur
+from utilisateurs import Utilisateur
+from utilitaires import espace, separateur, bienvenue, initialisation_scores, nouveau_scores, afficher_menu
 
 # PROGRAMME PRINCIPAL
 def main():
     scores = initialisation_scores()
     
     espace()
-    séparateur()
+    separateur()
     bienvenue()
-    séparateur()
+    separateur()
     
-    username = input(" + Pour commencer, veuillez saisir votre pseudonyme utilisé pour pouvoir jouer: ").upper()
+    username = input(" + Pour commencer, veuillez saisir votre pseudonyme pour pouvoir jouer : ").upper()
 
     if username in scores:
-        player = User(username, scores[username])
+        player = Utilisateur(username, scores[username])
     else:
-        player = User(username)
+        player = Utilisateur(username)
         scores[username] = player._solde
         nouveau_scores(username, player._solde)
 
@@ -34,5 +33,5 @@ except UnboundLocalError:
     scores = initialisation_scores()
     main()
 
-# Zone de test
+# Zone de test
 initialisation_scores()
