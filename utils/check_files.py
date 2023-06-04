@@ -26,7 +26,6 @@ def initialisation_scores(file_name: str = "score.txt") -> object:
                 "GRESSIER": 999,
                 "GUILLON": 777
             }
-            
     # test affichage réussi [X]
     # print(scores)
     return scores
@@ -40,6 +39,11 @@ def nouveau_scores(username: str, score: int, file_name: str = "score.txt") -> N
         score (int): Le score de l'utilisateur
         file_name (str, optional): Nom du fichier par défaut score.txt
     """
-    if score >= 0:
-        with open(file_name, "a+") as file:
+    
+    # chargement des scores existants
+    scores = initialisation_scores(file_name)
+    scores[username] = score
+    
+    with open(file_name, "w") as file:
+        for username, score in scores.items():
             file.write(f"{username};{score}\n")
