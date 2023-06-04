@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 
 from user import User
-from utils.check_files import initialisation_scores, nouveau_scores
+from utils.check_files import bienvenue, séparateur, espace, initialisation_scores, nouveau_scores 
 
 # PROGRAMME PRINCIPAL
 def main():
     scores = initialisation_scores()
     
-    welcome: str = """\n + TP - D33 (PGR) - MINI CASINO"""
-    tirets: str = "-"
-    
-    print(welcome)
-    print(f" + {tirets * 100}")
+    espace()
+    séparateur()
+    bienvenue()
+    séparateur()
     
     username = input(" + Pour commencer, veuillez saisir votre pseudonyme utilisé pour pouvoir jouer: ").upper()
 

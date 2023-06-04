@@ -1,3 +1,27 @@
+def espace():
+    """Permet de simplement créer un espace"""
+    return print()
+
+def bienvenue():
+    """Création d'un message d'accueil"""
+    welcome: str = """ + TP - D33 (PGR) - MINI CASINO"""
+    return print(welcome)
+
+def séparateur(symbole: str = "-", nombre: int = 100):
+    """fonction permettant de générer des symboles (tirets) pour séparer du contenu
+
+    Args:
+        symbole (str, optional): Le symbole utilisé. Par défaut "-".
+        nombre (int, optional): La quantité de symbole répété. Par défaut 100.
+
+    Returns:
+        _type_: Retourne une chaîne de caractères.
+    """
+    symbole: str = symbole.strip()
+    nombre: int = int(nombre)
+    return print(f" + {symbole * nombre}")
+
+
 # Gestion des scores (score.txt) - partie 1/2
 def initialisation_scores(file_name="score.txt"):
     """Création d'une première méthode pour initialiser le fichier score.txt
