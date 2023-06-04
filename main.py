@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 from user import User
-from utils.check_files import bienvenue, séparateur, espace, initialisation_scores, nouveau_scores, afficher_menu
+from utils.check_files import bienvenue, initialisation_scores, nouveau_scores, afficher_menu
+from utils.common import espace, séparateur
 
 # PROGRAMME PRINCIPAL
 def main():
@@ -33,5 +34,5 @@ except UnboundLocalError:
     scores = initialisation_scores()
     main()
 
-# Zone de test
+# Zone de test
 initialisation_scores()

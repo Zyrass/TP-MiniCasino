@@ -1,27 +1,12 @@
+from random import randint
 from user import User
-
-def espace():
-    """Permet de simplement créer un espace"""
-    return print()
+from jeux.machine_a_sous import MachineASous
+from .common import espace, séparateur
 
 def bienvenue():
     """Création d'un message d'accueil"""
     welcome: str = """ + TP - D33 (PGR) - MINI CASINO"""
     return print(welcome)
-
-def séparateur(symbole: str = "-", nombre: int = 100):
-    """fonction permettant de générer des symboles (tirets) pour séparer du contenu
-
-    Args:
-        symbole (str, optional): Le symbole utilisé. Par défaut "-".
-        nombre (int, optional): La quantité de symbole répété. Par défaut 100.
-
-    Returns:
-        _type_: Retourne une chaîne de caractères.
-    """
-    symbole: str = symbole.strip()
-    nombre: int = int(nombre)
-    return print(f" + {symbole * nombre}")
 
 def initialisation_scores(file_name="score.txt"):
     """Création d'une première méthode pour initialiser le fichier score.txt
@@ -83,10 +68,24 @@ def afficher_menu(player: User):
         espace()
 
         if choix_utilisateur == "1":
-            pass
+            machine = MachineASous()
+            machine.run(player)
         elif choix_utilisateur == "2":
             pass
         elif choix_utilisateur.lower() == "q":
             break
         else:
             print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")
+            espace()
+
+def check_machine_a_sous(player: User):
+    results = [randint(1,6) for _ in range(3)]
+    print(f" Résultats : {results}")
+    print(f" {player._name.capitalize()}, il te reste actuellement: {player._solde}€")
+    
+    if results[0] == results[1] == results[2]:
+        print(" Félicitation vous avez gagné 500€")
+        player.increment_solde(500)
+    else:
+        print(" Désolé, vous avez perdu. Essayez encore !")
+        
