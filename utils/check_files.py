@@ -1,3 +1,5 @@
+from user import User
+
 def espace():
     """Permet de simplement créer un espace"""
     return print()
@@ -21,8 +23,6 @@ def séparateur(symbole: str = "-", nombre: int = 100):
     nombre: int = int(nombre)
     return print(f" + {symbole * nombre}")
 
-
-# Gestion des scores (score.txt) - partie 1/2
 def initialisation_scores(file_name="score.txt"):
     """Création d'une première méthode pour initialiser le fichier score.txt
 
@@ -52,7 +52,6 @@ def initialisation_scores(file_name="score.txt"):
             }
     return scores
 
-# Gestion des scores (score.txt) - partie 2/2
 def nouveau_scores(username: str, score: int, file_name="score.txt"):
     """Création d'une seconde méthode pour ajouter à la suite un nouveau score.
 
@@ -68,3 +67,26 @@ def nouveau_scores(username: str, score: int, file_name="score.txt"):
     with open(file_name, "w") as file:
         for username, score in scores.items():
             file.write(f"{username.upper()};{score}\n")
+
+def afficher_menu(player: User):
+    while True:
+        séparateur("-", 35)
+        print(" + MENU - MINI CASINO")
+        séparateur("-", 35)
+        print(" + 1. Machine à sous")
+        print(" + 2. Roulette")
+        séparateur("-", 35)
+        print(" + Q. Quitter le mini casino")
+        séparateur("-", 35)
+
+        choix_utilisateur: str = input(f"\n{player._name.strip().capitalize()}, veuillez saisir un choix: ")
+        espace()
+
+        if choix_utilisateur == "1":
+            pass
+        elif choix_utilisateur == "2":
+            pass
+        elif choix_utilisateur.lower() == "q":
+            break
+        else:
+            print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")
