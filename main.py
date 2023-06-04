@@ -23,6 +23,28 @@ def main():
 
     # Message d'accueil
     print(f"\nBienvenue {player._name}, votre solde est de {player._solde}€\n")
+    
+    while True:
+        séparateur("-", 35)
+        print(" + MENU - MINI CASINO")
+        séparateur("-", 35)
+        print(" + 1. Machine à sous")
+        print(" + 2. Roulette")
+        séparateur("-", 35)
+        print(" + Q. Quitter le mini casino")
+        séparateur("-", 35)
+        
+        choix_utilisateur: str = input(f"\n{player._name.strip().capitalize()}, veuillez saisir un choix: ")
+        
+        if choix_utilisateur == "1":
+            pass
+        elif choix_utilisateur == "2":
+            pass
+        elif choix_utilisateur.lower() == "q":
+            break
+        else:
+            print("\n Désolé, ce choix est invalide, veuillez réessayer.\n") 
+
 
 # INITIALISATION DU PROGRAMME PRINCIPAL
 try:
