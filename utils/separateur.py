@@ -1,4 +1,4 @@
-class Separateur():
+class Separateur:
     """Fonction permettant de générer des séparateurs de contenu.
 
     Args:
@@ -9,21 +9,17 @@ class Separateur():
     Returns:
         str: Retourne un séparateur de type chaîne de caractères.
     """
-    
-    _symbole: str
-    _nombre: int
-    _decorateur: str
-    
+
     def __init__(self, symbole: str = "-", nombre: int = 100, decorateur: str = "") -> None:
         self._symbole = symbole.strip()
         if nombre <= 0:
-            self.nombre = 100
+            self._nombre = 100
         else:
-            self.nombre = int(nombre)
+            self._nombre = int(nombre)
         self._decorateur = decorateur
 
-    def afficher_separateur(self):
+    def afficher_separateur(self) -> None:
         if self._decorateur:
-            print(f"{self._decorateur}{self._symbole * self.nombre}")
+            print(f"{self._decorateur}{self._symbole * self._nombre}")
         else:
-            print(f"{self._symbole * self.nombre}")
+            print(f"{self._symbole * self._nombre}")

@@ -14,26 +14,26 @@ class Menu:
         self._choix_2 = choix2
         self._quitter = quitter
         
-    def get_titre(self):
-        print(f"{self._titre}")
+    def afficher_titre(self) -> None:
+        print(self._titre)
     
-    def get_choix_1(self):
-        print(f"{self._choix_1}")
+    def afficher_choix_1(self) -> None:
+        print(self._choix_1)
     
-    def get_choix_2(self):
-        print(f"{self._choix_2}")
+    def afficher_choix_2(self) -> None:
+        print(self._choix_2)
     
-    def get_quitter(self):
-        print(f"{self._quitter}")
+    def afficher_quitter(self) -> None:
+        print(self._quitter)
     
-    def afficher_menu(self, joueur):
+    def afficher_menu(self, joueur) -> None:
         Separateur().afficher_separateur()
-        self.get_titre()
+        self.afficher_titre()
         Separateur().afficher_separateur()
-        self.get_choix_1()
-        self.get_choix_2()
+        self.afficher_choix_1()
+        self.afficher_choix_2()
         Separateur().afficher_separateur()
-        self.get_quitter()
+        self.afficher_quitter()
         Separateur().afficher_separateur()
         
         choix_utilisateur: str = input(f"\n{joueur.get_nom().strip().capitalize()}, veuillez saisir un choix: ")
@@ -46,10 +46,6 @@ class Menu:
             roulette = Roulette()
             roulette.run(joueur)
         elif choix_utilisateur.lower() == "q":
-            # Sauvegarde de la nouvelle valeur du solde du joueur
-            self.scores[joueur.get_nom()] = joueur.get_solde()
-            self.nouveau_scores(joueur.get_nom(), joueur.get_solde())
             return
         else:
-            return "\n Désolé, ce choix est invalide, veuillez réessayer.\n"
-            
+            print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")
