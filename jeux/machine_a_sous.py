@@ -7,7 +7,7 @@ class MachineASous(Jeu):
         super().__init__("Machine à sous")
         
     def run(self, joueur: Utilisateur):
-        from .utilitaires import Utilitaires
+        from ..utils.common import Utilitaires
         self.bienvenue()
         
         while True:
