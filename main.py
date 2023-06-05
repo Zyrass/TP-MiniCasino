@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
 from utilisateur import Utilisateur
-from jeux.utilitaires import Utilitaires
+from utils.common import *
 
 # PROGRAMME PRINCIPAL
 def main():
     scores = Utilitaires.initialisation_scores()
     
-    Utilitaires.espace()
-    Utilitaires.separateur()
-    Utilitaires.bienvenue()
-    Utilitaires.separateur()
-    
+    print("\n")
+    separateur_tirets_x35_avec_decorateur_plus.afficher_separateur()
+    print(""" + TP - D33 (PGR) - MINI CASINO""")
+    separateur_tirets_x35_avec_decorateur_plus.afficher_separateur()
+
     username = input(" + Pour commencer, veuillez saisir votre pseudonyme pour pouvoir jouer : ").upper()
 
     if username in scores:
