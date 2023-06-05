@@ -1,10 +1,8 @@
-from ..utilisateur import Utilisateur
-
-class fichierScore:
+class FichierScore:
     
     _nom_fichier: str
     _extension: str
-    _scores: dict = {}
+    _scores: dict = {}  
     
     def __init__(self, nom_fichier: str, extension: str = "txt") -> None:
         self._nom_fichier = nom_fichier
@@ -28,7 +26,7 @@ class fichierScore:
             with open(nom_fichier_complet, "r") as fichier:
                 for ligne in fichier.readlines():
                     nom_joueur, score = ligne.strip().split(";")
-                    scores[nom_joueur] = int(score)
+                    scores[nom_joueur] = int(score.split(": ")[-1].strip("€"))
         except FileNotFoundError:
             contenu_par_defaut = "GRESSIER;999\nGUILLON;777\n"
             with open(nom_fichier_complet, "w") as fichier:
@@ -39,7 +37,7 @@ class fichierScore:
                 }
         return scores
     
-    def enregistrer_score(self, joueur: Utilisateur, score: int):
+    def enregistrer_score(self, joueur, score: int):
         """Ajoute un nouveau score à la suite.
 
         Args:
@@ -48,7 +46,6 @@ class fichierScore:
         """
         # Chargement des scores existants
         scores = self.initialisation_scores()
-
         scores[joueur.get_nom()] = score
 
         nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"

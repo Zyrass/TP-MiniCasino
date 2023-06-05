@@ -1,13 +1,13 @@
+from random import randint
 from .jeu import Jeu
-from utilisateur import Utilisateur
+from utils.common import Separateur
 
 class MachineASous(Jeu):
     
     def __init__(self):
         super().__init__("Machine à sous")
         
-    def run(self, joueur: Utilisateur):
-        from ..utils.common import Utilitaires
+    def run(self, joueur):
         self.bienvenue()
         
         while True:
@@ -45,3 +45,14 @@ class MachineASous(Jeu):
             else:
                 print(f"\n GAME OVER pour {joueur.get_nom()}, tu n'as plus un sou en poche.\n")
                 break
+
+    def verification_machine_a_sous(self, joueur):
+        resultat = [randint(1,6) for _ in range(3)]
+        print(f" Résultats : {resultat}")
+        print(f" {joueur.get_nom().capitalize()}, il te reste actuellement: {joueur.get_solde()}€")
+        
+        if resultat[0] == resultat[1] == resultat[2]:
+            print(" Félicitations, vous avez gagné 500€")
+            joueur.increment_solde(500)
+        else:
+            print(" Désolé, vous avez perdu. Essayez encore !")

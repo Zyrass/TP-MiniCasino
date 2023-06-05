@@ -23,7 +23,7 @@ class Separateur():
         self._decorateur = decorateur
 
     def afficher_separateur(self):
-        if self._decorateur == True:
-            print(f"{self._decorateur}{self._symbole * self._nombre}")
+        if self._decorateur:
+            print(f"{self._decorateur}{self._symbole * self.nombre}")
         else:
-            print(f"{self._symbole * self._nombre}")
+            print(f"{self._symbole * self.nombre}")
