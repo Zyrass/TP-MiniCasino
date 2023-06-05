@@ -1,6 +1,4 @@
 from .jeu import Jeu
-from ..utilisateur import Utilisateur
-from random import randint
 
 class Roulette(Jeu):
     """Un jeu du mini casino permettant de jouer à la roulette."""
@@ -8,8 +6,8 @@ class Roulette(Jeu):
     def __init__(self):
         super().__init__("Roulette")
         
-    def run(self, joueur: Utilisateur):
-        self.bienvenue()
+    def run(self, joueur):
+        self.afficher_bienvenue()
         
         while True:
             

@@ -29,11 +29,11 @@ class Utilisateur:
         
     def get_score(self):
         """Affiche le score de l'utilisateur."""
-        print(f"Score: {self._score}")
+        return f"Score: {self._score}"
         
     def get_solde(self):
         """Affiche le solde de l'utilisateur."""
-        print(f"Solde: {self._solde}€")
+        return f"Solde: {self._solde}€"
         
     def augmenter_solde(self, gains: int):
         """Augmente le solde de l'utilisateur.
