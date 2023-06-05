@@ -38,7 +38,8 @@ class MachineASous(Jeu):
                     joueur.diminuer_solde(5)
                     self.verification_machine_a_sous(joueur)
                 elif choix_joueur.lower() == "q":
-                    continuer = False
+                    #   continuer = False
+                    break
                 else:
                     print("... choix non valide, veuillez réessayer.")
             else:
