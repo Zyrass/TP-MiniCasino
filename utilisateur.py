@@ -1,14 +1,13 @@
 class Utilisateur:
-    """Il s'agit d'une classe permettant d'initialiser un "utilisateur" en lui définissant un solde de départ de 100€ par défaut (modifiable). Cette classe dispose également de quelques méthodes qui lui sont propre.
-    """
-    
+    """Il s'agit d'une classe permettant d'initialiser un "utilisateur" en lui définissant un solde de départ de 100€ par défaut (modifiable). Cette classe dispose également de quelques méthodes qui lui sont propres."""
+
     _nom: str
     _score: int
     _solde: int
-    
-    def __init__(self, username: str, score: int = 0, solde: int = 100):
+
+    def __init__(self, username: str, score: int = 0, solde: int = 100) -> None:
         """Initialise un utilisateur avec un nom, un score et un solde par défaut de 100€ s'il n'est pas spécifié.
-        
+
         Args:
             username (str): Le nom du joueur.
             score (int, optional): Le score du joueur, par défaut 0.
@@ -22,34 +21,35 @@ class Utilisateur:
             print("Attribution automatique de 100€ pour pouvoir jouer.")
         else:
             self._solde = solde
-            
-    def get_nom(self):
+
+    def get_nom(self) -> str:
         """Retourne le nom de l'utilisateur."""
         return self._nom
-        
-    def get_score(self):
-        """Affiche le score de l'utilisateur."""
+
+    def afficher_score(self) -> str:
+        """Retourne le score de l'utilisateur."""
         return f"Score: {self._score}"
-        
-    def get_solde(self):
-        """Affiche le solde de l'utilisateur."""
+
+    def afficher_solde(self) -> str:
+        """Retourne le solde de l'utilisateur."""
         return f"Solde: {self._solde}€"
-        
-    def augmenter_solde(self, gains: int):
+
+    def augmenter_solde(self, gains: int) -> None:
         """Augmente le solde de l'utilisateur.
-        
+
         Args:
             gains (int): Le montant des gains à ajouter.
         """
         self._solde += gains
-        
-    def diminuer_solde(self, mise: int):
+
+    def diminuer_solde(self, mise: int) -> None:
         """Diminue le solde de l'utilisateur.
-        
+
         Args:
             mise (int): Le montant de la mise à déduire.
         """
-        # Vérifie que la mise est inférieure ou égale au solde de l'utilisateur.
         if mise <= self._solde:
             self._solde -= mise
             print(f"{self.get_nom()}, tu viens de miser {mise}€.")
+        else:
+            print(f"Désolé, {self.get_nom()}, tu n'as pas suffisamment d'argent pour miser {mise}€.")
