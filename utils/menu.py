@@ -39,13 +39,14 @@ class Menu:
         choix_utilisateur: str = input(f"\n{joueur.get_nom().strip().capitalize()}, veuillez saisir un choix: ")
         print("\n")
         
-        if choix_utilisateur == "1":
-            machine = MachineASous()
-            machine.run(joueur)
-        elif choix_utilisateur == "2":
-            roulette = Roulette()
-            roulette.run(joueur)
-        elif choix_utilisateur.lower() == "q":
-            return
-        else:
-            print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")
+        while True:
+            if choix_utilisateur == "1":
+                machine = MachineASous()
+                machine.run(joueur)
+            elif choix_utilisateur == "2":
+                roulette = Roulette()
+                roulette.run(joueur)
+            elif choix_utilisateur.lower() == "q":
+                break
+            else:
+                print("\n Désolé, ce choix est invalide, veuillez réessayer.\n")

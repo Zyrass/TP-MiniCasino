@@ -30,9 +30,7 @@ def main():
     print(f"\nBienvenue {joueur.get_nom()}, votre solde est de {joueur._solde}\n")
     
     menu = Menu()
-    
-    while True:
-        menu.afficher_menu(joueur)
+    menu.afficher_menu(joueur)
 
 if __name__ == "__main__":
     main()
