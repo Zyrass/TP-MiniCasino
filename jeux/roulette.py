@@ -1,5 +1,6 @@
 from .jeu import Jeu
 from random import randint
+from os import system
 
 class Roulette(Jeu):
     """Un jeu du mini casino permettant de jouer à la roulette."""
@@ -13,7 +14,8 @@ class Roulette(Jeu):
         while True:
             choix_utilisateur = input(f"\n {joueur.get_nom()}, entre le montant de ta mise (ou q pour quitter) : ")
             if choix_utilisateur.lower() == 'q':
-                break
+                system("clear")
+                return False
             else:
                 try:
                     mise_depart = int(choix_utilisateur)

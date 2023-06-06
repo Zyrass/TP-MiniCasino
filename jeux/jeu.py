@@ -5,4 +5,4 @@ class Jeu:
         self._nom_jeu = nom_jeu
 
     def afficher_bienvenue(self) -> None:
-        print(f"Bienvenue dans {self._nom_jeu}")
+        print(f"Bienvenue sur le jeu: \"La {self._nom_jeu.lower()}\"")
