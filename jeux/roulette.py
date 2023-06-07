@@ -44,7 +44,7 @@ class Roulette(Jeu):
             
             if resultat == choix_nombre_entre_0_et_49:
                 gain = mise_depart * 3
-                print(f"Félicitations ! Vous avez gagné {gain}€")
+                print(f" 🎉 - Félicitations ! Vous avez gagné {gain}€ (💰💰💰💰💰)")
                 joueur.augmenter_solde(gain)
             elif resultat % 2 == choix_nombre_entre_0_et_49 % 2:
                 gain = mise_depart // 2

@@ -21,7 +21,6 @@ def main():
 
     nom_joueur = input("+ Veuillez saisir votre nom pour accéder au mini casino : ").upper()
 
-    system("clear")
     print("\n")
     scores = fichier_scores.initialisation_scores()
     if nom_joueur in scores:
