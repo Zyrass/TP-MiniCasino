@@ -1,4 +1,5 @@
 from random import randint
+from utils.fichier_score import FichierScore
 from jeux.jeu import Jeu
 from utils.separateur import Separateur
 from os import system
@@ -52,6 +53,7 @@ class MachineASous(Jeu, Separateur):
                     joueur.diminuer_solde(100)
                     self.verification_machine_a_sous(joueur)
                 elif choix_joueur.lower() == "q":
+                    FichierScore.enregistrer_score("scores.txt", joueur, joueur._solde)
                     system("clear")
                     return
                 else:
@@ -59,10 +61,8 @@ class MachineASous(Jeu, Separateur):
             elif joueur._solde == 0:
                 print(
                     f" ❌ - GAME OVER pour {joueur.get_nom()}, tu n'as plus de 🪙 en poche.\n")
-                touche_appuyer = input(
-                    "Appuyer sur une touche pour revenir au menu précédent")
-                if len(touche_appuyer) > 0:
-                    break
+                FichierScore.enregistrer_score("scores.txt", joueur, joueur._solde)
+                break
 
     def verification_machine_a_sous(self, joueur):
         separateur_validation = Separateur("=", 100, "+ ")
@@ -73,13 +73,12 @@ class MachineASous(Jeu, Separateur):
         separateur_validation.afficher_separateur()
         if resultat[0] == resultat[1] == resultat[2]:
             print("+ ✅ - Super félicitation, vous venez de gagner 500€ cash")
+            separateur_validation.afficher_separateur()
+            print()
             joueur.augmenter_solde(500)
         else:
             print("+ ❌ - Dommage, vous avez perdu. Essayez encore !")
         separateur_validation.afficher_separateur()
+        print()
+            
 
-        continuer = input(
-            "Appuyez sur une touche pour réafficher le menu de la Machine à sous")
-        if len(continuer) > 0 and continuer != "q":
-            system("clear")
-            print("\n")

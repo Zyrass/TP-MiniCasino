@@ -23,19 +23,25 @@ class FichierScore:
                     nom_joueur, score = ligne.strip().split(";")
                     scores[nom_joueur] = int(score)
         except FileNotFoundError:
-            contenu_par_defaut = "GRESSIER;999\nGUILLON;777\n"
+            contenu_par_defaut = "GRESSIER;999\nALAIN;777\n"
             with open(nom_fichier_complet, "w") as fichier:
                 fichier.write(contenu_par_defaut)
-                scores = {
-                    "GRESSIER": 999,
-                    "GUILLON": 777
-                }
+            scores = {
+                "GRESSIER": 999,
+                "ALAIN": 777
+            }
         return scores
     
-    def enregistrer_score(self, joueur, score: int) -> None:
+    def afficher_scores(self, nom_fichier_complet: str) -> None:
         scores = self.initialisation_scores()
-        scores[joueur.get_nom()] = score
-
+        print("Tableau des scores:")
+        with open(nom_fichier_complet, "r") as fichier:
+            for ligne in fichier.readlines():
+                nom_joueur, score = ligne.strip().split(";")
+                solde = scores[nom_joueur]  # Utiliser le solde au lieu du score
+                print(f"{nom_joueur} : {solde}€")
+    
+    def enregistrer_score(self, joueur, score: int) -> None:
         nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"
         with open(nom_fichier_complet, "w") as fichier:
             for username, score in scores.items():

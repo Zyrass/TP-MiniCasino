@@ -33,6 +33,9 @@ def main():
     print(f"\nBienvenue {joueur.get_nom()}, votre solde est de {joueur._solde}€")
     print("Petite précision, le score est lié directement à ton solde actuel.\n")
     
+    fichier_scores.afficher_scores("scores.txt")
+    print()
+    
     menu = Menu()
     menu.afficher_menu(joueur)
         

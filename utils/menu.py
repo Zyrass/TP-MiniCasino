@@ -51,6 +51,7 @@ class Menu(Separateur):
                 roulette = Roulette()
                 roulette.run(joueur)
             elif choix_utilisateur.lower() == "q":
+                
                 print(f"Au revoir {joueur.get_nom()}, à bientôt j'espère.\n")
                 break
             else:
