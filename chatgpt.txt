@@ -1,0 +1,513 @@
+J'ai besoin de test services en tant qu'expert python depuis plus de 20 ans. Egalement tu es expert fullstack. J'ai ce projet à faire : 
+
+Le but de ce programme est de créer un mini casino avec 2 jeux : une machine a sous et une roulette. Un tableau des scores est tenu dans un fichier score.txt
+
+1. (3pts) Lors de début de la partie le tableau des scores est affiché. Les scores sont enregistré dans le fichier score.txt. La première ligne enregistre l'utilisateur qui a le plus d'argent. La dernière celui qui en as le moins. (Le cas d'égalité ne sera pas traité et laissé sur un ordre arbitraire). Une ligne est constituée du nom et de son argent, séparé par un ';'.
+ex: Gressier;999
+
+2. (3pts) Un utilisateur est défini par son nom et son argent. Il ne peut pas avoir moins de 0€. Il doit être représenté par une classe dans un fichier a part.
+
+3. (3pts) Ensuite, l'utilisateur doit pouvoir entrer son nom. Si son nom n'est pas dans le fichier score.txt 100€ lui son donné.
+
+4. (3 pts) Un menu lui demande s'il veut utiliser la machine a sous (choix 1) ou la roulette (choix 2) ou quitter (choix q). S'il entre une autre valeur, redemander.
+
+5. (3 pts) S'il choisi quitter, afficher le tableau à jour et sauvegarder le nouveau tableau dans le fichier score.txt pour une prochaine partie.
+
+6. (3 pts) Créer une classe jeu qui contient un attribut 'nom_du_jeu'. Cette attribué est initialisé par le constructeur. ( ex flechette =
+Jeu("Flechette") ). Cette classe doit être dans le fichier 'jeu.py' lui même dans le dossier 'jeux' (ainsi le chemin relatif est : ./jeux/jeu.py). La classe Jeu possède une méthode "bienvenue()" qui affiche "Bienvenu dans [nom du jeu]"
+
+7. (3 pts) Créer une classe MachineASous qui hérite de Jeu. MachineASous définie automatiquement le nom du jeu a "Machine à sous". Si l'utilisateur a  choisi 1 au menu défini au point 4, le message de bienvenu est affiché (via la méthode hérité de jeu). Puis le jeu est lancé via la méthode run (machine_a_sous.run(user)). l'utilisateur peut choisir de jouer 1€ (via la touche 1) ou quitter (via la touche q). En cas de mauvaise entrée, on redemande la saisie. S'il quitte, l'utilisateur revient au menu défini au point 4.
+
+8. (3 pts) Si 1€ est joué, il perd 1€. La machine a sous tire au hasard alors 3 chiffres entre 1 et 6 compris. Si les 3 chiffres sont identiques, il gagne 500€, sinon il ne gagne rien. De nouveau il peut choisir entre jouer 1€ ou quitter
+
+9. (3 pts) Créer une classe Roulette qui hérite de Jeu. Roulette définie automatiquement le nom du jeu a "Roulette". Si l'utilisateur a choisi 2 au menu défini au point 4, le message de bienvenu est affiché (via la méthode hérité de jeu). Puis le jeu est lancé via la méthode run (roulette.run(user)). L'utilisateur peut choisir de jouer une somme (doit être un nombre (contrôle 1) positif (contrôle 2) et il doit posséder l'argent joué (contrôle 3)) ou quitter (via touche q). En cas de mauvaise entrée, on redemande la saisie. S'il quitte, l'utilisateur revient au menu défini au point 4.
+
+10. (3 pts) Une fois la somme joué, il doit choisir un numéro entre 0 et 49 compris. La roulette tire un numéro au hasard entre 0 et 49. Si le numéro tire est celui choisi par l'utilisateur, il reçoit 3 fois la somme misée (âpres l'avoir donnée a la roulette). Si le numéro choisi par l'utilisateur est paire et que la roulette tire un paire, il récupère seulement 50% de sa somme initial. De même si le numéro de l'utilisateur est impaire  et celui de la roulette est impaire. Dans le cas où le numéro de l'utilisateur est  paire mais pas la roulette (ou inversement) alors l'utilisateur ne reçoit rien. L'utilisateur peut de nouveau choisir de rejouer une somme ou quitter etc.
+
+================
+
+11 bonus (3 pts) Ajouter un mot de passe a l'étape 2, via getpass et stocker le mot de passe en sha512 dans score. Si l'utilisateur existe mais le  mdp n'est pas bon, c'est la fin du programme avec erreur custom. Si le mdp est bon le programme continue. Si l'utilisateur n'existe pas, le programme continue et enregistre le sha du mdp pour le sauvegarder a la fin (classe User probablement à modifier)
+
+
+Vous avez le droit à l'aide de chatGPT et Google, mais vous avez toutes les connaissances pour faire le programme.
+Vous avez 1 semaine pour faire le programme. Soit fermeture rendu jeudi 08/06 14:00.
+
+Le rendu doit être dans une archive ZIP au format nom_prenom.zip
+
+
+-----------------
+
+J'ai bien conçus quelque chose mais il manque certaines choses, de plus j'aimerais fusioner la classe FichierScore avec la création de plusieurs méthodes dans ma classe Utilisateur.
+Egalement j'aimerai transformer ma classe utilisateur en classe Joueur.
+J'aimerai aussi supprimer le fichier common uniquement si il ne sert a rien.
+Egalement j'aimerai exploiter mes classes avec des getters et setters.
+Je veux quelque chose de propre et professionnel. (J'aimerai aussi garder le rendu voir peut-être l'améliorer surtout sur la partie roulette après toutes tes corrections.) Le tout en français avec des commentaire qui me permettront d'y revenir plus simplement.
+Egalement il faudrait faire tout ceci étape par étape.
+
+Il faudrait qu'au tout premier démarrage si un utilisateur existe, qu'il puisse continuer à jouer avec son ancien solde.
+
+----------------------------
+
+Voici le contenu que j'ai actuellement:
+
+class Utilisateur:
+    """Il s'agit d'une classe permettant d'initialiser un "utilisateur" en lui définissant un solde de départ de 100€ par défaut (modifiable). Cette classe dispose également de quelques méthodes qui lui sont propre.
+    """
+    
+    _nom: str
+    _score: int
+    _solde: int
+    
+    def __init__(self, username: str, score: int = 0, solde: int = 100):
+        """Initialise un utilisateur avec un nom, un score et un solde par défaut de 100€ s'il n'est pas spécifié.
+        
+        Args:
+            username (str): Le nom du joueur.
+            score (int, optional): Le score du joueur, par défaut 0.
+            solde (int, optional): Le solde de départ du joueur, par défaut 100€.
+        """
+        self._nom = username
+        self._score = score
+        if solde <= 0:
+            self._solde = 100
+            print(f"Désolé, {self.get_nom()}, tu ne peux pas avoir un solde égal ou inférieur à 0€.")
+            print("Attribution automatique de 100€ pour pouvoir jouer.")
+        else:
+            self._solde = solde
+            
+    def get_nom(self):
+        """Retourne le nom de l'utilisateur."""
+        return self._nom
+        
+    def get_score(self):
+        """Affiche le score de l'utilisateur."""
+        return f"Score: {self._score}"
+        
+    def get_solde(self):
+        """Retourne le solde de l'utilisateur."""
+        return self._solde
+        
+    def augmenter_solde(self, gains: int):
+        """Augmente le solde de l'utilisateur.
+        
+        Args:
+            gains (int): Le montant des gains à ajouter.
+        """
+        self._solde += gains
+        
+    def diminuer_solde(self, mise: int):
+        """Diminue le solde de l'utilisateur.
+        
+        Args:
+            mise (int): Le montant de la mise à déduire.
+        """
+        # Vérifie que la mise est inférieure ou égale au solde de l'utilisateur.
+        if mise <= self._solde:
+            self._solde -= mise
+            print(f"{self.get_nom()}, tu viens de miser {mise}€.")
+
+#!/usr/bin/env python3
+
+from utilisateur import Utilisateur
+from jeux.machine_a_sous import MachineASous
+from jeux.roulette import Roulette
+from utils.fichier_score import FichierScore
+from utils.menu import Menu
+from utils.separateur import Separateur
+from os import system
+
+
+
+def main():
+    fichier_scores: FichierScore = FichierScore("scores", "txt")
+    
+    print("\n")
+    main_separateur: Separateur = Separateur("-", 69, "+ ")
+    main_separateur.afficher_separateur()
+    print("""+ TP - D33 (PGR) - MINI CASINO""")
+    main_separateur.afficher_separateur()
+
+    nom_joueur = input("+ Veuillez saisir votre nom pour accéder au mini casino : ").upper()
+
+    print("\n")
+    scores = fichier_scores.initialisation_scores()
+    if nom_joueur in scores:
+        joueur = Utilisateur(nom_joueur, scores[nom_joueur])
+    else:
+        joueur = Utilisateur(nom_joueur)
+        scores[joueur.get_nom()] = joueur._solde
+        fichier_scores.enregistrer_score(joueur, joueur._solde)
+
+    print(f"\nBienvenue {joueur.get_nom()}, votre solde est de {joueur._solde}€")
+    print("Petite précision, le score est lié directement à ton solde actuel.\n")
+    
+    fichier_scores.afficher_scores("scores.txt")
+    print()
+    
+    menu = Menu()
+    menu.afficher_menu(joueur)
+        
+if __name__ == "__main__":
+    main()
+
+class Separateur:
+    """Fonction permettant de générer des séparateurs de contenu.
+
+    Args:
+        symbole (str, optional): Le symbole utilisé par défaut est "-".
+        nombre (int, optional): La quantité de symboles répétés par défaut est 100.
+        decorateur (str, optional): Le décorateur utilisé par défaut est "".
+
+    Returns:
+        str: Retourne un séparateur de type chaîne de caractères.
+    """
+
+    def __init__(self, symbole: str = "-", nombre: int = 100, decorateur: str = "") -> None:
+        self._symbole = symbole.strip()
+        if nombre <= 0:
+            self._nombre = 100
+        else:
+            self._nombre = int(nombre)
+        self._decorateur = decorateur
+
+    def afficher_separateur(self) -> None:
+        if self._decorateur:
+            print(f"{self._decorateur}{self._symbole * self._nombre}")
+        else:
+            print(f"{self._symbole * self._nombre}")
+
+from .separateur import Separateur
+from jeux.machine_a_sous import MachineASous
+from jeux.roulette import Roulette
+from os import system
+
+
+class Menu(Separateur):
+    _titre: str
+    _choix_1: str
+    _choix_2: str
+    _quitter: str
+
+    def __init__(self, titre: str = "+ 📍 MENU - MINI CASINO", choix1: str = "+ 1. ➡️   Machine à sous", choix2: str = "+ 2. ➡️   Roulette", quitter: str = "+ Q. ⏹️   Quitter le mini casino") -> None:
+        super().__init__("-", 69, "+ ")
+        self._titre = titre
+        self._choix_1 = choix1
+        self._choix_2 = choix2
+        self._quitter = quitter
+
+    def afficher_titre(self) -> None:
+        print(self._titre)
+
+    def afficher_choix_1(self) -> None:
+        print(self._choix_1)
+
+    def afficher_choix_2(self) -> None:
+        print(self._choix_2)
+
+    def afficher_quitter(self) -> None:
+        print(self._quitter)
+
+    def afficher_menu(self, joueur) -> None:
+        while True:
+            self.afficher_separateur()
+            self.afficher_titre()
+            self.afficher_separateur()
+            self.afficher_choix_1()
+            self.afficher_choix_2()
+            self.afficher_separateur()
+            self.afficher_quitter()
+            self.afficher_separateur()
+
+            choix_utilisateur: str = input(
+                f"\n{joueur.get_nom().strip().capitalize()}, veuillez saisir un choix: ")
+            print("\n")
+
+            if choix_utilisateur == "1":
+                machine = MachineASous()
+                machine.run(joueur)
+            elif choix_utilisateur == "2":
+                roulette = Roulette()
+                roulette.run(joueur)
+            elif choix_utilisateur.lower() == "q":
+                
+                print(f"Au revoir {joueur.get_nom()}, à bientôt j'espère.\n")
+                break
+            else:
+                print(
+                    f"Désolé {joueur.get_nom().strip().capitalize()}, ce choix est invalide, veuillez réessayer.\n")
+
+class FichierScore:
+    _nom_fichier: str
+    _extension: str
+    _scores: dict
+    
+    def __init__(self, nom_fichier: str, extension: str = "txt") -> None:
+        self._nom_fichier = nom_fichier
+        self._extension = extension
+        self._scores = {}
+        
+    def get_nom_fichier(self) -> str:
+        return self._nom_fichier
+    
+    def get_extension(self) -> str:
+        return self._extension
+        
+    def initialisation_scores(self) -> dict:
+        scores = self._scores
+        nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"
+        try:
+            with open(nom_fichier_complet, "r") as fichier:
+                for ligne in fichier.readlines():
+                    nom_joueur, score = ligne.strip().split(";")
+                    scores[nom_joueur] = int(score)
+        except FileNotFoundError:
+            contenu_par_defaut = "GRESSIER;999\nALAIN;777\n"
+            with open(nom_fichier_complet, "w") as fichier:
+                fichier.write(contenu_par_defaut)
+            scores = {
+                "GRESSIER": 999,
+                "ALAIN": 777
+            }
+        return scores
+    
+    def afficher_scores(self, nom_fichier_complet: str) -> None:
+        scores = self.initialisation_scores()
+        print("Tableau des scores:")
+        with open(nom_fichier_complet, "r") as fichier:
+            for ligne in fichier.readlines():
+                nom_joueur, score = ligne.strip().split(";")
+                solde = scores[nom_joueur]  # Utiliser le solde au lieu du score
+                print(f"{nom_joueur} : {solde}€")
+    
+    def enregistrer_score(self, joueur, score: int) -> None:
+        nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"
+        with open(nom_fichier_complet, "w") as fichier:
+            for username, score in scores.items():
+                fichier.write(f"{username.upper()};{score}\n")
+
+common.py (utile ou pas ?)
+from .separateur import Separateur
+
+def creer_separateur_tirets_x100_avec_decorateur_plus() -> Separateur:
+    return Separateur("-", 100, " + ")
+
+def creer_separateur_tirets_x35_avec_decorateur_plus() -> Separateur:
+    return Separateur("-", 35, " + ")
+
+from .jeu import Jeu
+from random import randint
+from os import system
+
+class Roulette(Jeu):
+    """Un jeu du mini casino permettant de jouer à la roulette."""
+    
+    def __init__(self):
+        super().__init__("Roulette")
+        
+    def run(self, joueur):
+        self.afficher_bienvenue()
+        
+        while True:
+            choix_utilisateur = input(f"\n {joueur.get_nom()}, entre le montant de ta mise (ou q pour quitter) : ")
+            if choix_utilisateur.lower() == 'q':
+                system("clear")
+                return False
+            else:
+                try:
+                    mise_depart = int(choix_utilisateur)
+                except ValueError:
+                    print("Mise invalide. Veuillez entrer un nombre entier.")
+                    continue
+                
+            if mise_depart > joueur.get_solde():
+                print(f"\nDésolé {joueur.get_nom()}, tu ne peux pas miser plus que ton solde. Réessaie.")
+                print(f"Tu as saisi : {mise_depart} alors qu'il ne te reste que {joueur.get_solde()}")
+                continue
+            
+            joueur.diminuer_solde(mise_depart)
+            
+            choix_nombre_entre_0_et_49 = input("Super, choisis maintenant un numéro entre 0 et 49 : ")
+            try:
+                choix_nombre_entre_0_et_49 = int(choix_nombre_entre_0_et_49)
+            except ValueError:
+                print("Choix invalide. Veuillez entrer un nombre entier entre 0 et 49.")
+                continue
+            
+            resultat = randint(0, 49)
+            
+            print(f"Résultat du tirage : {resultat}")
+            print(f"Tu as choisi : {choix_nombre_entre_0_et_49}")
+            
+            if resultat == choix_nombre_entre_0_et_49:
+                gain = mise_depart * 3
+                print(f" 🎉 - Félicitations ! Vous avez gagné {gain}€ (💰💰💰💰💰)")
+                joueur.augmenter_solde(gain)
+            elif resultat % 2 == choix_nombre_entre_0_et_49 % 2:
+                gain = mise_depart // 2
+                print("Vous récupérez la moitié de votre mise.")
+                joueur.augmenter_solde(gain)
+            else:
+                print("Désolé, vous avez perdu. Essayez encore !")
+
+from random import randint
+from utils.fichier_score import FichierScore
+from jeux.jeu import Jeu
+from utils.separateur import Separateur
+from os import system
+
+
+class MachineASous(Jeu, Separateur):
+
+    def __init__(self):
+        Jeu.__init__(self, "Machine à sous")
+        Separateur.__init__(self, "-", 69, "+ ")
+
+    def run(self, joueur):
+        system("clear")
+        print("\n")
+        self.afficher_bienvenue()
+        print("\n")
+        while True:
+            self.afficher_separateur()
+            print(f"+ 🕹️  {self._nom_jeu}")
+            self.afficher_separateur()
+            print("+ 1. ➡️  Jouer 1€ -  🪙")
+            print("+ 2. ➡️  Jouer 2€ -  🪙 🪙")
+            print("+ 3. ➡️  Jouer 3€ -  🪙 🪙 🪙")
+            print("+ 4. ➡️  Jouer 4€ -  🪙 🪙 🪙 🪙")
+            print("+ 5. ➡️  Jouer 5€ -  🪙 🪙 🪙 🪙 🪙")
+            self.afficher_separateur()
+            print("+ 6. 🔧 - TEST DEBUG - Jouer 100€")
+            self.afficher_separateur()
+            print("+ Q. ⏹️  Revenir sur la sélection des jeux du casino")
+            self.afficher_separateur()
+            print(f"\n{joueur.get_nom()}, tu disposes de {joueur._solde}€")
+            choix_joueur = input(f"fais un choix : ")
+
+            if joueur._solde > 0:
+                if choix_joueur == "1":
+                    joueur.diminuer_solde(1)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur == "2":
+                    joueur.diminuer_solde(2)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur == "3":
+                    joueur.diminuer_solde(3)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur == "4":
+                    joueur.diminuer_solde(4)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur == "5":
+                    joueur.diminuer_solde(5)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur == "6":
+                    joueur.diminuer_solde(100)
+                    self.verification_machine_a_sous(joueur)
+                elif choix_joueur.lower() == "q":
+                    FichierScore.enregistrer_score("scores.txt", joueur, joueur._solde)
+                    system("clear")
+                    return
+                else:
+                    print("... choix non valide, veuillez réessayer.")
+            elif joueur._solde == 0:
+                print(
+                    f" ❌ - GAME OVER pour {joueur.get_nom()}, tu n'as plus de 🪙 en poche.\n")
+                FichierScore.enregistrer_score("scores.txt", joueur, joueur._solde)
+                break
+
+    def verification_machine_a_sous(self, joueur):
+        separateur_validation = Separateur("=", 100, "+ ")
+        resultat = [randint(1, 6) for _ in range(3)]
+        print("\n")
+        separateur_validation.afficher_separateur()
+        print(f"+ Résultat du tirage : {resultat}")
+        separateur_validation.afficher_separateur()
+        if resultat[0] == resultat[1] == resultat[2]:
+            print("+ ✅ - Super félicitation, vous venez de gagner 500€ cash")
+            separateur_validation.afficher_separateur()
+            print()
+            joueur.augmenter_solde(500)
+        else:
+            print("+ ❌ - Dommage, vous avez perdu. Essayez encore !")
+        separateur_validation.afficher_separateur()
+        print()
+            
+
+class Jeu:
+    """Il s'agit d'une classe parente qui permet de définir le nom d'un jeu."""
+
+    def __init__(self, nom_jeu: str) -> None:
+        self._nom_jeu = nom_jeu
+
+    def afficher_bienvenue(self) -> None:
+        print(f"Bienvenue sur le jeu: \"La {self._nom_jeu.lower()}\"")
+
+
+
+
+class Joueur:
+    """Il s'agit d'une classe permettant d'initialiser un "joueur" en lui définissant un solde de départ, si aucun solde n'est indiqué alors automatiquement il lui sera attribué 100€ par défaut.
+    """
+
+    _nom: str
+    _solde: int
+    _score: int
+    _mot_de_passe: str  # Pas encore sur de l'implémentation.
+
+    def __init__(self, param_nom: str, param_solde: int, param_score: int = 0, param_mot_de_passe: str = None) -> None:
+        """Initialise un utilisateur avec un nom, un score et un solde par défaut de 100€ s'il n'est pas spécifié.
+
+        Args:
+            username (str): Le nom du joueur.
+            score (int, optional): Le score du joueur, par défaut 0.
+            solde (int, optional): Le solde de départ du joueur, par défaut 100€.
+        """
+        self._nom = param_nom
+        # Contrôle si le solde est inférieur ou égale à 0
+        if param_solde <= 0:
+            self._solde = 100
+            print(
+                f"{self.nom()}, pour ta première connexion, le Casino à le plaisir de t'offrir 100€ pour pouvoir jouer.\n")
+        else:
+            self._solde = param_solde
+        self.score = param_score
+        self._mot_de_passe = param_mot_de_passe
+
+    @property
+    def nom(self) -> str:
+        return self._nom
+
+    @nom.setter
+    def nom(self, set_nom: str) -> None:
+        self._nom = set_nom
+
+    @property
+    def solde(self) -> int:
+        return int(self._solde)
+
+    @solde.setter
+    def solde(self, set_solde: int) -> None:
+        self._solde = int(set_solde)
+
+    # ======================================================== Partie Scores
+
+    def enregistrement_nouveau_solde(self) -> None:
+        """Enregistre le solde et le score du joueur"""
+        tableau_des_scores: list = []
+        self._score = self._solde
+
+        # Lecture du fichier score
+        with open("../data/scores.txt", "r") as fichier_score:
+            for ligne in fichier_score.readlines():
+                if self._nom in ligne:
+                    resultat_ligne = f"{self._nom};{self._score};{self._mot_de_passe}\n"
+                else:
+                    resultat_ligne = ligne
+                tableau_des_scores.append(resultat_ligne)
+
+        # Enregistrement du fichier après re-lecture
+        with open("../data/scores.txt", "w") as fichier_score:
+            fichier_score.write(tableau_des_scores)
+
+
+    Mais sans conviction .... 

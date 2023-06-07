@@ -1,54 +1,184 @@
-from .jeu import Jeu
-from random import randint
+from utils.separateur import Separateur
+from random import choice
 from os import system
 
-class Roulette(Jeu):
-    """Un jeu du mini casino permettant de jouer à la roulette."""
-    
+
+class Roulette(Separateur):
     def __init__(self):
-        super().__init__("Roulette")
-        
-    def run(self, joueur):
-        self.afficher_bienvenue()
-        
+        super().__init__("-", 69, "+ ")
+
+    def afficher_titre(self) -> None:
+        print("+ ---------------------------------------------------------------------")
+        print("+ 🎲 Roulette")
+        print("+ ---------------------------------------------------------------------")
+
+    def afficher_choix(self) -> None:
+        print("+ 1. ➡️  Jouer 1€ sur un nombre")
+        print("+ 2. ➡️  Jouer 2€ sur une couleur (🔴 ou ⚫)")
+        print("+ 3. ➡️  Jouer 3€ sur un nombre pair ou impair")
+        print("+ 4. ➡️  Jouer 4€ sur un groupe de nombres (1-12, 13-24, 25-36)")
+        print("+ 5. ➡️  Jouer 5€ sur une douzaine (1-12, 13-24, 25-36)")
+        print("+ ---------------------------------------------------------------------")
+        print("+ Q. ⏹️  Revenir sur la sélection des jeux du casino")
+        print("+ ---------------------------------------------------------------------")
+
+    def run(self, joueur) -> None:
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        self.afficher_titre()
+        separateur_roulette.afficher_separateur()
+        self.afficher_choix()
+        separateur_roulette.afficher_separateur()
+
         while True:
-            choix_utilisateur = input(f"\n {joueur.get_nom()}, entre le montant de ta mise (ou q pour quitter) : ")
-            if choix_utilisateur.lower() == 'q':
-                system("clear")
-                return False
+            choix_utilisateur = input(
+                f"\n{joueur.nom.strip().capitalize()}, veuillez saisir un choix: ")
+            print("\n")
+
+            if choix_utilisateur == "1":
+                self.jouer_sur_nombre(joueur, 1)
+            elif choix_utilisateur == "2":
+                self.jouer_sur_couleur(joueur, 2)
+            elif choix_utilisateur == "3":
+                self.jouer_sur_parite(joueur, 3)
+            elif choix_utilisateur == "4":
+                self.jouer_sur_groupe(joueur, 4)
+            elif choix_utilisateur == "5":
+                self.jouer_sur_douzaine(joueur, 5)
+            elif choix_utilisateur.lower() == "q":
+                print(f"Retour au menu principal.\n")
+                break
             else:
-                try:
-                    mise_depart = int(choix_utilisateur)
-                except ValueError:
-                    print("Mise invalide. Veuillez entrer un nombre entier.")
-                    continue
-                
-            if mise_depart > joueur.get_solde():
-                print(f"\nDésolé {joueur.get_nom()}, tu ne peux pas miser plus que ton solde. Réessaie.")
-                print(f"Tu as saisi : {mise_depart} alors qu'il ne te reste que {joueur.get_solde()}")
-                continue
-            
-            joueur.diminuer_solde(mise_depart)
-            
-            choix_nombre_entre_0_et_49 = input("Super, choisis maintenant un numéro entre 0 et 49 : ")
-            try:
-                choix_nombre_entre_0_et_49 = int(choix_nombre_entre_0_et_49)
-            except ValueError:
-                print("Choix invalide. Veuillez entrer un nombre entier entre 0 et 49.")
-                continue
-            
-            resultat = randint(0, 49)
-            
-            print(f"Résultat du tirage : {resultat}")
-            print(f"Tu as choisi : {choix_nombre_entre_0_et_49}")
-            
-            if resultat == choix_nombre_entre_0_et_49:
-                gain = mise_depart * 3
-                print(f" 🎉 - Félicitations ! Vous avez gagné {gain}€ (💰💰💰💰💰)")
-                joueur.augmenter_solde(gain)
-            elif resultat % 2 == choix_nombre_entre_0_et_49 % 2:
-                gain = mise_depart // 2
-                print("Vous récupérez la moitié de votre mise.")
-                joueur.augmenter_solde(gain)
-            else:
-                print("Désolé, vous avez perdu. Essayez encore !")
+                print(
+                    f"Désolé {joueur.nom.strip().capitalize()}, ce choix est invalide, veuillez réessayer.\n")
+
+    def jouer_sur_nombre(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"{joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.\n")
+            return
+
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        print("+ 0  1  2  3  4  5  6  7  8  9 10 11 12")
+        print("+ ---------------------------------------")
+        print("+ 13 14 15 16 17 18 19 20 21 22 23 24")
+        print("+ ---------------------------------------")
+        print("+ 25 26 27 28 29 30 31 32 33 34 35 36")
+        separateur_roulette.afficher_separateur()
+
+        numero_gagnant = choice(range(37))
+        print(f"\nLe numéro gagnant est : {numero_gagnant}\n")
+
+        if int(input("Choisissez un numéro entre 0 et 36 : ")) == numero_gagnant:
+            gains = mise * 36
+            joueur.augmenter_solde(gains)
+            print(
+                f"Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.\n")
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.\n")
+
+    def jouer_sur_couleur(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"{joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.\n")
+            return
+
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        print("+ 🔴     : 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36")
+        print("+ ⚫      : 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35")
+        separateur_roulette.afficher_separateur()
+
+        couleur_gagnante = choice(["🔴", "⚫"])
+        print(f"\nLa couleur gagnante est : {couleur_gagnante}\n")
+
+        if input("Choisissez une couleur (🔴 (r) / ⚫ (n)) : ").lower() == couleur_gagnante.lower():
+            gains = mise
+            joueur.augmenter_solde(gains)
+            print(
+                f"Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.\n")
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.\n")
+
+    def jouer_sur_parite(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"{joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.\n")
+            return
+
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        print("+ Pair      : 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36")
+        print("+ Impair    : 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35")
+        separateur_roulette.afficher_separateur()
+
+        parite_gagnante = choice(["Pair", "Impair"])
+        print(f"\nLa parité gagnante est : {parite_gagnante}\n")
+
+        if input("Choisissez une parité (Pair/Impair) : ").lower() == parite_gagnante.lower():
+            gains = mise
+            joueur.augmenter_solde(gains)
+            print(
+                f"Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.\n")
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.\n")
+
+    def jouer_sur_groupe(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"{joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.\n")
+            return
+
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        print("+ 1-12      : 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12")
+        print("+ 13-24     : 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24")
+        print("+ 25-36     : 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36")
+        separateur_roulette.afficher_separateur()
+
+        groupe_gagnant = choice(["1-12", "13-24", "25-36"])
+        print(f"\nLe groupe gagnant est : {groupe_gagnant}\n")
+
+        if input("Choisissez un groupe de nombres (1-12, 13-24, 25-36) : ") == groupe_gagnant:
+            gains = mise * 3
+            joueur.augmenter_solde(gains)
+            print(
+                f"Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.\n")
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.\n")
+
+    def jouer_sur_douzaine(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"{joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.\n")
+            return
+
+        separateur_roulette = Separateur("-", 69, "+ ")
+
+        separateur_roulette.afficher_separateur()
+        print("+ 1-12      : 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12")
+        print("+ 13-24     : 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24")
+        print("+ 25-36     : 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36")
+        separateur_roulette.afficher_separateur()
+
+        douzaine_gagnante = choice(["1-12", "13-24", "25-36"])
+        print(f"\nLa douzaine gagnante est : {douzaine_gagnante}\n")
+
+        if input("Choisissez une douzaine (1-12, 13-24, 25-36) : ") == douzaine_gagnante:
+            gains = mise * 2
+            joueur.augmenter_solde(gains)
+            print(
+                f"Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.\n")
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.\n")

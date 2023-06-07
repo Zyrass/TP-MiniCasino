@@ -1,21 +1,15 @@
 from .separateur import Separateur
 from jeux.machine_a_sous import MachineASous
 from jeux.roulette import Roulette
-from os import system
 
 
 class Menu(Separateur):
-    _titre: str
-    _choix_1: str
-    _choix_2: str
-    _quitter: str
-
-    def __init__(self, titre: str = "+ 📍 MENU - MINI CASINO", choix1: str = "+ 1. ➡️   Machine à sous", choix2: str = "+ 2. ➡️   Roulette", quitter: str = "+ Q. ⏹️   Quitter le mini casino") -> None:
+    def __init__(self):
         super().__init__("-", 69, "+ ")
-        self._titre = titre
-        self._choix_1 = choix1
-        self._choix_2 = choix2
-        self._quitter = quitter
+        self._titre = "+ 📍 MENU - MINI CASINO"
+        self._choix_1 = "+ 1. ➡️   Machine à sous"
+        self._choix_2 = "+ 2. ➡️   Roulette"
+        self._quitter = "+ Q. ⏹️   Quitter le mini casino"
 
     def afficher_titre(self) -> None:
         print(self._titre)
@@ -29,7 +23,7 @@ class Menu(Separateur):
     def afficher_quitter(self) -> None:
         print(self._quitter)
 
-    def afficher_menu(self, joueur) -> None:
+    def afficher_menu(self, joueur, fichier_scores) -> None:
         while True:
             self.afficher_separateur()
             self.afficher_titre()
@@ -40,8 +34,8 @@ class Menu(Separateur):
             self.afficher_quitter()
             self.afficher_separateur()
 
-            choix_utilisateur: str = input(
-                f"\n{joueur.get_nom().strip().capitalize()}, veuillez saisir un choix: ")
+            choix_utilisateur = input(
+                f"\n{joueur.nom.strip().capitalize()}, veuillez saisir un choix: ")
             print("\n")
 
             if choix_utilisateur == "1":
@@ -51,9 +45,10 @@ class Menu(Separateur):
                 roulette = Roulette()
                 roulette.run(joueur)
             elif choix_utilisateur.lower() == "q":
-                
-                print(f"Au revoir {joueur.get_nom()}, à bientôt j'espère.\n")
+                joueur.enregistrer_nouveau_solde(fichier_scores)
+                print(f"Au revoir {joueur.nom}, à bientôt j'espère.\n")
+                fichier_scores.afficher_scores(fichier_scores.lire_scores())
                 break
             else:
                 print(
-                    f"Désolé {joueur.get_nom().strip().capitalize()}, ce choix est invalide, veuillez réessayer.\n")
+                    f"Désolé {joueur.nom.strip().capitalize()}, ce choix est invalide, veuillez réessayer.\n")
