@@ -1,3 +1,5 @@
+from utils.separateur import Separateur
+
 class FichierScore:
     def __init__(self):
         self._nom_fichier = "scores.txt"
@@ -24,16 +26,22 @@ class FichierScore:
         top_3_scores = sorted(
             scores.items(), key=lambda x: x[1], reverse=True)[:3]
 
-        print("Tableau des scores :")
+        separateur_tableau_scores = Separateur("=", 100, "+ ")
+        print()
+        separateur_tableau_scores.afficher_separateur()
+        print("+ 🏆 - Tableau des scores :")
+        separateur_tableau_scores.afficher_separateur()
         for i, (nom_joueur, score_joueur) in enumerate(top_3_scores, start=1):
             if i == 1:
-                print(f"🥇 {nom_joueur} - {score_joueur}€")
+                print(f"+ 1er  : 🥇 \t{nom_joueur} avec un score de {score_joueur}")
             elif i == 2:
-                print(f"🥈 {nom_joueur} - {score_joueur}€")
+                print(f"+ 2ème : 🥈 \t{nom_joueur} avec un score de {score_joueur}")
             elif i == 3:
-                print(f"🥉 {nom_joueur} - {score_joueur}€")
+                print(f"+ 3ème : 🥉 \t{nom_joueur} avec un score de {score_joueur}")
             else:
-                print(f"{nom_joueur} - {score_joueur}€")
+                print(f"+ {i}ème : \t{nom_joueur} avec un score de {score_joueur}€")
+        separateur_tableau_scores.afficher_separateur()
+        print()
 
     def enregistrer_nouveau_score(self, nom_joueur, nouveau_score):
         scores = self.lire_scores()

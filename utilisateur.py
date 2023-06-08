@@ -52,4 +52,4 @@ class Utilisateur:
         # Vérifie que la mise est inférieure ou égale au solde de l'utilisateur.
         if mise <= self._solde:
             self._solde -= mise
-            print(f"{self.get_nom()}, tu viens de miser {mise}€.")
+            print(f"+ ℹ️ {self.get_nom()}, tu viens de miser {mise}€.")
