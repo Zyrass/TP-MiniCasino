@@ -1,22 +1,10 @@
 class FichierScore:
-    _nom_fichier: str
-    _extension: str
-    _scores: dict
-    
-    def __init__(self, nom_fichier: str, extension: str = "txt") -> None:
-        self._nom_fichier = nom_fichier
-        self._extension = extension
-        self._scores = {}
-        
-    def get_nom_fichier(self) -> str:
-        return self._nom_fichier
-    
-    def get_extension(self) -> str:
-        return self._extension
-        
-    def initialisation_scores(self) -> dict:
-        scores = self._scores
-        nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"
+    def __init__(self):
+        self._nom_fichier = "scores.txt"
+
+    def lire_scores(self):
+        scores = {}
+        nom_fichier_complet = self._nom_fichier
         try:
             with open(nom_fichier_complet, "r") as fichier:
                 for ligne in fichier.readlines():
@@ -31,18 +19,31 @@ class FichierScore:
                 "ALAIN": 777
             }
         return scores
-    
-    def afficher_scores(self, nom_fichier_complet: str) -> None:
-        scores = self.initialisation_scores()
-        print("Tableau des scores:")
-        with open(nom_fichier_complet, "r") as fichier:
-            for ligne in fichier.readlines():
-                nom_joueur, score = ligne.strip().split(";")
-                solde = scores[nom_joueur]  # Utiliser le solde au lieu du score
-                print(f"{nom_joueur} : {solde}€")
-    
-    def enregistrer_score(self, joueur, score: int) -> None:
-        nom_fichier_complet = f"{self._nom_fichier}.{self._extension}"
-        with open(nom_fichier_complet, "w") as fichier:
-            for username, score in scores.items():
-                fichier.write(f"{username.upper()};{score}\n")
+
+    def afficher_scores(self, scores):
+        top_3_scores = sorted(
+            scores.items(), key=lambda x: x[1], reverse=True)[:3]
+
+        print("Tableau des scores :")
+        for i, (nom_joueur, score_joueur) in enumerate(top_3_scores, start=1):
+            if i == 1:
+                print(f"🥇 {nom_joueur} - {score_joueur}€")
+            elif i == 2:
+                print(f"🥈 {nom_joueur} - {score_joueur}€")
+            elif i == 3:
+                print(f"🥉 {nom_joueur} - {score_joueur}€")
+            else:
+                print(f"{nom_joueur} - {score_joueur}€")
+
+    def enregistrer_nouveau_score(self, nom_joueur, nouveau_score):
+        scores = self.lire_scores()
+
+        if nom_joueur in scores:
+            scores[nom_joueur] = nouveau_score
+        else:
+            scores[nom_joueur] = nouveau_score
+
+        with open(self._nom_fichier, "w") as fichier:
+            for nom, score in scores.items():
+                ligne = f"{nom};{score}\n"
+                fichier.write(ligne)
