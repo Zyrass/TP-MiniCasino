@@ -13,10 +13,10 @@ Il s'agit d'un TP qui me permettra de valider le module **D33 - PGR - Initiation
 
 ### Étape 1 - (3pts)
 
--   [ ] -   Lors de début de la partie le tableau des scores est affiché.
--   [ ] -   Les scores sont enregistré dans le fichier score.txt.
--   [ ] -   La première ligne enregistre l'utilisateur qui a le plus d'argent.
--   [ ] -   La dernière celui qui en as le moins.
+-   [x] -   ~~Lors de début de la partie le tableau des scores est affiché.~~
+-   [x] -   ~~Les scores sont enregistré dans le fichier score.txt.~~
+-   [x] -   ~~La première ligne enregistre l'utilisateur qui a le plus d'argent.~~
+-   [x] -   ~~La dernière celui qui en as le moins.~~
     -   (_Le cas d'égalité ne sera pas traité et laissé sur un ordre arbitraire_).
 -   [x] -   ~~Une ligne est constituée du nom et de son argent, séparé par un ';'.~~
 
@@ -47,9 +47,9 @@ Guillon;777
 
 ### Étape 5 - (3pts)
 
--   [ ] -   S'il choisi quitter:
-    -   [ ] -   afficher le tableau à jour
-    -   [ ] -   sauvegarder le nouveau tableau dans le fichier score.txt (_pour une prochaine partie._)
+-   [x] -   ~~S'il choisi quitter:~~
+    -   [x] -   ~~afficher le tableau à jour~~
+    -   [x] -   ~~sauvegarder le nouveau tableau dans le fichier score.txt (_pour une prochaine partie._)~~
 
 ### Étape 6 - (3pts)
 
@@ -64,7 +64,7 @@ flechette = Jeu("Flechette")
 -   [x] -   ~~Cette classe doit être dans le fichier 'jeu.py' lui même~~
 -   [x] -   ~~dans le dossier 'jeux'~~
     -   [x] -   (~~_ainsi le chemin relatif est : **./jeux/jeu.py**_~~).
--   [x] -   ~~La classe Jeu possède une méthode "**bienvenue()**"~~
+-   [x] -   ~~La classe Jeu possède une méthode "**bienvenue()**"~~ (_j'ai saisie afficher\_bienvenue()_)
 -   [x] -   ~~Elle affiche "**Bienvenu dans [_nom du jeu_]**"~~
 
 ### Étape 7 - (3pts)
@@ -97,7 +97,7 @@ flechette = Jeu("Flechette")
     -   [ ] -   Contrôle n°2: **doit être obligatoirement un nombre positif**
     -   [x] -   ~~Contrôle n°3: **doit posséder l'argent joué**~~
 -   [x] -   ~~Enfin il peut quitter (**via touche q**).~~
--   [ ] -   En cas de mauvaise entrée, on redemande la saisie.
+-   [x] -   ~~En cas de mauvaise entrée, on redemande la saisie.~~
 -   [x] -   ~~S'il quitte, l'utilisateur revient au menu défini au point 4.~~
 
 ### Étape 10 - (3pts)
