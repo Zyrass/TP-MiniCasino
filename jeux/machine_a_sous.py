@@ -1,48 +1,118 @@
-from .jeu import Jeu
-from user import User
-from utils.common import espace, séparateur
+from utils.separateur import Separateur
+from random import randint
+from os import system
 
-class MachineASous(Jeu):
-    
-    def __init__(self) -> None:
-        super().__init__("Machine à sous")
+
+class MachineASous(Separateur):
+    def __init__(self):
+        super().__init__("-", 100, "+ ")
+
+    def afficher_titre(self) -> None:
+        print("+ ---------------------------------------------------------------------")
+        print("+ 🕹️  Machine à sous")
+        print("+ ---------------------------------------------------------------------")
+
+    def afficher_choix(self) -> None:
+        print("+ 1. ➡️  Jouer 1€ -  🪙")
+        print("+ 2. ➡️  Jouer 2€ -  🪙 🪙")
+        print("+ 3. ➡️  Jouer 3€ -  🪙 🪙 🪙")
+        print("+ 4. ➡️  Jouer 4€ -  🪙 🪙 🪙 🪙")
+        print("+ 5. ➡️  Jouer 5€ -  🪙 🪙 🪙 🪙 🪙")
+        print("+ ---------------------------------------------------------------------")
+        print("+ 6. 🔧 - TEST DEBUG - Jouer 100€")
+        print("+ ---------------------------------------------------------------------")
+        print("+ Q. ⏹️  Revenir sur la sélection des jeux du casino")
+        print("+ ---------------------------------------------------------------------")
         
-    def run(self, player: User):
-        from utils.check_files import check_machine_a_sous
-        self.bienvenue()
-        
+    def menu_contenu(self):
+        system("clear")
+        separateur_machine_a_sous = Separateur("-", 100, "+ ")
+
+        separateur_machine_a_sous.afficher_separateur()
+        self.afficher_titre()
+        separateur_machine_a_sous.afficher_separateur()
+        self.afficher_choix()
+        separateur_machine_a_sous.afficher_separateur()
+
+    def run(self, joueur) -> None:
+        self.menu_contenu()
         while True:
-            print("\n + 1. Jouer 1€")
-            print(" + 2. Jouer 2€")
-            print(" + 3. Jouer 3€")
-            print(" + 4. Jouer 4€")
-            print(" + 5. Jouer 5€")
-            print(" + Q. Quitter la machine à sous")
-            print("")
-            choix_joueur = input(f" {player._name}, fait un choix: ")
-            
-            if player._solde > 0:
-                match(choix_joueur):
-                    case "1":
-                        player.decrement_solde(1)
-                        check_machine_a_sous(player)
-                    case "2":
-                        player.decrement_solde(2)
-                        check_machine_a_sous(player)
-                    case "3":
-                        player.decrement_solde(3)
-                        check_machine_a_sous(player)
-                    case "4":
-                        player.decrement_solde(4)
-                        check_machine_a_sous(player)
-                    case "5":
-                        player.decrement_solde(5)
-                        check_machine_a_sous(player)
-                    case "q":
-                        break
-                    case _:
-                        print(" ... choix non valide, veuillez réessayer.")
-    
-            else:
-                print(f"\n GAME OVER pour {player._name}, tu n'as plus un sous en poche.\n")
+            print(f"\nTu disposes de {joueur.solde}€ en poche...")
+            choix_utilisateur = input(
+                f"{joueur.nom.strip().capitalize()}, veuillez saisir un choix: ")
+            print("\n")
+
+            if choix_utilisateur == "1":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 1)
+            elif choix_utilisateur == "2":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 2)
+            elif choix_utilisateur == "3":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 3)
+            elif choix_utilisateur == "4":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 4)
+            elif choix_utilisateur == "5":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 5)
+            elif choix_utilisateur == "6":
+                self.menu_contenu()
+                print()
+                self.jouer(joueur, 100)
+            elif choix_utilisateur.lower() == "q":
+                system("clear")
+                print(f"\nRetour au menu principal.")
+                print(f"Tu disposes de {joueur.solde}€\n")
                 break
+            else:
+                print(
+                    f"⛔ - Désolé {joueur.nom.strip().capitalize()}, ce choix est invalide, veuillez réessayer.\n")
+
+    def jouer(self, joueur, mise) -> None:
+        if mise > joueur.solde:
+            print(f"⛔ - {joueur.nom}, tu n'as pas assez d'argent pour miser {mise}€.")
+            return
+
+        symboles = ["❌", "💲", "💎", "🍀", "💰", "🪙"]
+        symbole_1 = symboles[randint(0, 5)]
+        symbole_2 = symboles[randint(0, 5)]
+        symbole_3 = symboles[randint(0, 5)]
+
+        separateur_machine_a_sous = Separateur("-", 100, "+ ")
+        separateur_machine_a_sous.afficher_separateur()
+        print(f"+ \t\tRésultat TIRAGE :\t\t\t\t{symbole_1}  {symbole_2}  {symbole_3}")
+        separateur_machine_a_sous.afficher_separateur()
+
+        if symbole_1 == symbole_2 == symbole_3:
+            if symbole_1 == "❌":
+                gains = 0
+            elif symbole_1 == "🍀":
+                gains = mise * 20
+            elif symbole_1 == "💲":
+                gains = mise * 40
+            elif symbole_1 == "💰":
+                gains = mise * 80
+            elif symbole_1 == "💎":
+                gains = 500
+            else:
+                gains = mise * 160
+
+            joueur.augmenter_solde(gains)
+            print(
+                f"+ 🎉  - Félicitations {joueur.nom.strip().capitalize()} ! Tu as gagné {gains}€.")
+            print(f"+ Tu as dorénavant {joueur.solde}€ en poche !!")
+            separateur_machine_a_sous.afficher_separateur()
+            print()
+        else:
+            joueur.diminuer_solde(mise)
+            print(
+                f"+ Dommage {joueur.nom.strip().capitalize()}, tu as perdu {mise}€.")
+            separateur_machine_a_sous.afficher_separateur()
+            print()

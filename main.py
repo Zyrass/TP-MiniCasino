@@ -1,38 +1,45 @@
-#!/usr/bin/env python3
+from joueur import Joueur
+from utils.fichier_score import FichierScore
+from utils.menu import Menu
+from utils.separateur import Separateur
+from os import system
 
-from user import User
-from utils.check_files import bienvenue, initialisation_scores, nouveau_scores, afficher_menu
-from utils.common import espace, séparateur
 
-# PROGRAMME PRINCIPAL
 def main():
-    scores = initialisation_scores()
-    
-    espace()
-    séparateur()
-    bienvenue()
-    séparateur()
-    
-    username = input(" + Pour commencer, veuillez saisir votre pseudonyme utilisé pour pouvoir jouer: ").upper()
+    fichier_scores = FichierScore()
 
-    if username in scores:
-        player = User(username, scores[username])
+    separateur_principal = Separateur("-", 69, "+ ")
+
+    system("clear")
+    print()
+    separateur_principal.afficher_separateur()
+    print("""+ 👨‍🎓 - TP - D33 (PGR) - MINI CASINO""")
+    separateur_principal.afficher_separateur()
+    print()
+    
+    nom_joueur = input(
+        "🖊️ - Veuillez saisir votre nom pour accéder au mini casino : ").upper()
+
+    system("clear")
+    print("\nℹ️  - Rappel des scores :\n")
+    scores = fichier_scores.lire_scores()
+    fichier_scores.afficher_scores(scores)
+    
+    if nom_joueur in scores:
+        solde_joueur = scores[nom_joueur]
+        joueur = Joueur(nom_joueur, solde_joueur)
     else:
-        player = User(username)
-        scores[username] = player._solde
-        nouveau_scores(username, player._solde)
+        joueur = Joueur(nom_joueur)
+        scores[joueur.nom] = joueur.solde
+        fichier_scores.enregistrer_nouveau_score(joueur.nom, joueur.solde)
 
-    # Message d'accueil
-    print(f"\nBienvenue {player._name}, votre solde est de {player._solde}€\n")
-    
-    afficher_menu(player)
+    print(f"\nBienvenue {joueur.nom}, votre solde est de {joueur.solde}€")
+    print("Petite précision, le score est lié directement à ton solde actuel.")
+    print("Je te souhaite vraiment de gagner un maximum d'argent... mais aussi d'en perdre soyons réaliste 🤪")
+    print("🔞 - Le jeu d'argent est dangereux pour la santé, veuillez faire très attention.\n")
 
-# INITIALISATION DU PROGRAMME PRINCIPAL
-try:
+    menu = Menu()
+    menu.afficher_menu(joueur, fichier_scores)
+
+if __name__ == "__main__":
     main()
-except UnboundLocalError:
-    scores = initialisation_scores()
-    main()
-
-# Zone de test
-initialisation_scores()
